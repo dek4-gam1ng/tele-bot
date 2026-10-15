@@ -14,13 +14,13 @@ from telegram import Bot
 WIB = ZoneInfo("Asia/Jakarta")
 # Local WIB hours and minutes, in posting order.
 TIMES = [
-    (10, 45, "CAMBODIA"), (12, 15, "TTM P1"),
+    (10, 45, "CAMBODIA"), (12, 15, "TTM 13"),
     (12, 45, "SYDNEY"), (14, 30, "CHINA"),
-    (15, 15, "TTM P2"), (16, 15, "JAPAN"),
-    (16, 45, "SGP"), (18, 15, "TTM P3"),
-    (19, 45, "TAIWAN"), (21, 15, "TTM P4"),
-    (21, 45, "HONGKONG"), (22, 15, "TTM P5"),
-    (23, 15, "TTM P6"),
+    (15, 15, "TTM 16"), (16, 15, "JAPAN"),
+    (16, 45, "SGP"), (18, 15, "TTM 19"),
+    (19, 45, "TAIWAN"), (21, 15, "TTM 22"),
+    (21, 45, "HONGKONG"), (22, 15, "TTM 23"),
+    (23, 15, "TTM 00"),
 ]
 STATE_PATH = ".telegram-sent.json"
 CATCHUP_MINUTES = 15
