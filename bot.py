@@ -27,25 +27,27 @@ CATCHUP_MINUTES = 15
 
 
 def make_message(name: str, now: datetime) -> str:
-    digits = [secrets.randbelow(10) for _ in range(5)]
-    bbfs = digits.copy()
-    index = secrets.randbelow(4)
-    bbfs[index], bbfs[index + 1] = bbfs[index + 1], bbfs[index]
-    # If swapped digits match, the BBFS can remain unchanged.
+    # Five unique digits per set; at most two shared digits between sets.
+    bbfs = secrets.SystemRandom().sample(range(10), 5)
+    while True:
+        poltar = secrets.SystemRandom().sample(range(10), 5)
+        if len(set(bbfs) & set(poltar)) <= 2:
+            break
+
+    def pick(source, count):
+        return ''.join(map(str, source[:count]))
+
     return (
-        f"✦ {name} ✦\n"
-        f"📅 {now:%d/%m/%Y}\n"
+        f"🔮 PREDIKSI {name} ({now:%d/%m})\n"
         "━━━━━━━━━━━━━━━━━━\n"
-        "🧩 ANGKA INCERAN\n"
-        f"{' • '.join(map(str, digits))}\n\n"
-        "🪐 4D\n"
-        f"{''.join(map(str, digits[:4]))} | {''.join(map(str, [digits[4], digits[3], digits[2], digits[1]]))}\n\n"
-        "🫧 3D\n"
-        f"{''.join(map(str, digits[2:]))} | {''.join(map(str, digits[:3]))}\n\n"
-        "🗝️ 2D\n"
-        f"{''.join(map(str, digits[3:]))} | {''.join(map(str, digits[1:3]))}\n\n"
-        "🌀 BBFS\n"
-        f"{''.join(map(str, bbfs))}\n"
+        "⚡ BBFS x POLTAR\n"
+        f"{pick(bbfs, 5)} x {pick(poltar, 5)}\n\n"
+        "🎯 4D\n"
+        f"{pick(bbfs, 4)} | {pick(poltar, 4)}\n\n"
+        "🎯 3D\n"
+        f"{pick(bbfs[2:], 3)} | {pick(poltar[2:], 3)}\n\n"
+        "🎯 2D\n"
+        f"{pick(bbfs[3:], 2)} | {pick(poltar[3:], 2)}\n\n"
         "━━━━━━━━━━━━━━━━━━\n"
         "🤞 MOGA HOKINYA NYANGKUT\n\n"
         "🔗 Join VIP :\n"
