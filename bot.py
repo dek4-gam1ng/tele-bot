@@ -18,6 +18,9 @@ TIMES = [
     (7, 45, "LAOS"),
     (8, 0, "SOUTHKOREA"),
     (8, 30, "NORTHKOREA"),
+    (8, 35, "NEW YORK"),
+    (9, 10, "KENTUCKY EVENING"),
+    (9, 20, "TEXAS"),
     (10, 45, "CAMBODIA"),
     (11, 15, "BRUNEI"),
     (11, 20, "BULLSEYE"),
@@ -37,6 +40,7 @@ TIMES = [
     (21, 45, "HONGKONG"),
     (22, 15, "TTM 23"),
     (23, 15, "TTM 24"),
+    (23, 30, "KENTUCKY DAY"),
 ]
 STATE_PATH = ".telegram-sent.json"
 CATCHUP_MINUTES = 15
