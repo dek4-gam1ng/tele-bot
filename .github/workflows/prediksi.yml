@@ -10,6 +10,7 @@ on:
         type: choice
         options:
           - 'AUTO'
+          - 'AUSTRALIA'
           - 'CAMBODIA'
           - 'TTM 13'
           - 'SYDNEY'
