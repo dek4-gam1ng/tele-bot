@@ -14,6 +14,7 @@ from telegram import Bot
 WIB = ZoneInfo("Asia/Jakarta")
 # Local WIB hours and minutes, in posting order.
 TIMES = [
+    (5, 45, "AUSTRALIA"),
     (10, 45, "CAMBODIA"), (12, 15, "TTM 13"),
     (12, 45, "SYDNEY"), (14, 30, "CHINA"),
     (15, 15, "TTM 16"), (16, 15, "JAPAN"),
