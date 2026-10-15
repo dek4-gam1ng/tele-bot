@@ -22,7 +22,7 @@ on:
           - 'TTM 22'
           - 'HONGKONG'
           - 'TTM 23'
-          - 'TTM 00'
+          - 'TTM 24'
 
 permissions:
   contents: write
