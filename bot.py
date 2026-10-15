@@ -69,7 +69,7 @@ def make_message(name: str, now: datetime) -> str:
         "🎯 2D\n"
         f"{pick(bbfs[3:], 2)} | {pick(poltar[3:], 2)}\n\n"
         "━━━━━━━━━━━━━━━━━━\n"
-        "🤞 MOGA HOKINYA NYANGKUT\n\n"
+        "🤞 SALAM JP PAUS & TETAP UPS!\n\n"
         "🔗 Join VIP :\n"
         "https://mez.ink/theprediksitogel"
     )
