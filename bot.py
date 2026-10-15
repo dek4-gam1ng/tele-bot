@@ -100,6 +100,8 @@ def save_state(state, sha):
 async def main():
     now = datetime.now(WIB)
     manual = os.getenv("MANUAL_NAME", "").strip().upper()
+    if manual == "AUTO":
+        manual = ""
     names = {name for _, _, name in TIMES}
     if manual and manual not in names:
         raise ValueError(f"Unknown prediction name: {manual}")
