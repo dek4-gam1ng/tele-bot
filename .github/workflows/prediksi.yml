@@ -2,19 +2,7 @@ name: Prediksi Telegram
 
 on:
   schedule:
-    - cron: '45 3 * * *'
-    - cron: '15 5 * * *'
-    - cron: '45 5 * * *'
-    - cron: '30 7 * * *'
-    - cron: '15 8 * * *'
-    - cron: '15 9 * * *'
-    - cron: '45 9 * * *'
-    - cron: '15 11 * * *'
-    - cron: '45 12 * * *'
-    - cron: '15 14 * * *'
-    - cron: '45 14 * * *'
-    - cron: '15 15 * * *'
-    - cron: '15 16 * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       nama:
@@ -38,12 +26,16 @@ on:
           - 'TTM P6'
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: telegram-delivery
+  cancel-in-progress: false
 
 jobs:
   kirim:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -55,6 +47,6 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          GITHUB_SCHEDULE: ${{ github.event.schedule }}
+          GH_TOKEN: ${{ github.token }}
           MANUAL_NAME: ${{ inputs.nama }}
         run: python bot.py
