@@ -20,7 +20,7 @@ TIMES = [
     (16, 45, "SGP"), (18, 15, "TTM 19"),
     (19, 45, "TAIWAN"), (21, 15, "TTM 22"),
     (21, 45, "HONGKONG"), (22, 15, "TTM 23"),
-    (23, 15, "TTM 00"),
+    (23, 15, "TTM 24"),
 ]
 STATE_PATH = ".telegram-sent.json"
 CATCHUP_MINUTES = 15
