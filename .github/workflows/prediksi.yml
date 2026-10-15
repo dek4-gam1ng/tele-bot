@@ -11,18 +11,18 @@ on:
         options:
           - 'AUTO'
           - 'CAMBODIA'
-          - 'TTM P1'
+          - 'TTM 13'
           - 'SYDNEY'
           - 'CHINA'
-          - 'TTM P2'
+          - 'TTM 16'
           - 'JAPAN'
           - 'SGP'
-          - 'TTM P3'
+          - 'TTM 19'
           - 'TAIWAN'
-          - 'TTM P4'
+          - 'TTM 22'
           - 'HONGKONG'
-          - 'TTM P5'
-          - 'TTM P6'
+          - 'TTM 23'
+          - 'TTM 00'
 
 permissions:
   contents: write
