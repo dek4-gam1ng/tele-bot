@@ -23,7 +23,7 @@ TIMES = [
     (23, 15, "TTM P6"),
 ]
 STATE_PATH = ".telegram-sent.json"
-CATCHUP_MINUTES = 30
+CATCHUP_MINUTES = 15
 
 
 def make_message(name: str, now: datetime) -> str:
