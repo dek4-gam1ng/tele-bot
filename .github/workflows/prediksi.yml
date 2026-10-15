@@ -1,0 +1,60 @@
+name: Prediksi Telegram
+
+on:
+  schedule:
+    - cron: '45 3 * * *'
+    - cron: '15 5 * * *'
+    - cron: '45 5 * * *'
+    - cron: '30 7 * * *'
+    - cron: '15 8 * * *'
+    - cron: '15 9 * * *'
+    - cron: '45 9 * * *'
+    - cron: '15 11 * * *'
+    - cron: '45 12 * * *'
+    - cron: '15 14 * * *'
+    - cron: '45 14 * * *'
+    - cron: '15 15 * * *'
+    - cron: '15 16 * * *'
+  workflow_dispatch:
+    inputs:
+      nama:
+        description: 'Nama prediksi untuk tes manual'
+        required: true
+        default: 'CAMBODIA'
+        type: choice
+        options:
+          - 'CAMBODIA'
+          - 'TTM P1'
+          - 'SYDNEY'
+          - 'CHINA'
+          - 'TTM P2'
+          - 'JAPAN'
+          - 'SGP'
+          - 'TTM P3'
+          - 'TAIWAN'
+          - 'TTM P4'
+          - 'HONGKONG'
+          - 'TTM P5'
+          - 'TTM P6'
+
+permissions:
+  contents: read
+
+jobs:
+  kirim:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - name: Kirim ke Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_SCHEDULE: ${{ github.event.schedule }}
+          MANUAL_NAME: ${{ inputs.nama }}
+        run: python bot.py
