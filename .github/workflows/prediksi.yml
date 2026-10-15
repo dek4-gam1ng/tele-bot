@@ -11,6 +11,7 @@ on:
         default: 'CAMBODIA'
         type: choice
         options:
+          - 'AUTO'
           - 'CAMBODIA'
           - 'TTM P1'
           - 'SYDNEY'
