@@ -140,6 +140,8 @@ async def main():
             if 0 <= delay <= CATCHUP_MINUTES:
                 if name == "SGP" and now.weekday() in (1, 4):
                     continue
+                if name == "MAGNUM4D" and now.weekday() not in (2, 5, 6):
+                    continue
                 due.append((name, planned))
 
     if not due:
