@@ -175,40 +175,7 @@ def back_keyboard():
     ]])
 
 
-async def handle_commands(bot, chat_id, state, sha):
-    # Read button presses during existing QStash runs.
-    previous = max(
-        (int(v) for k, v in state.items() if k.endswith(":UPDATES_OFFSET")),
-        default=0,
-    )
-    updates = await bot.get_updates(offset=previous, timeout=0, limit=100)
-    for update in updates:
-        query = update.callback_query
-        if query:
-            msg = query.message
-            if msg and str(msg.chat.id) == str(chat_id):
-                key = f"{datetime.now(WIB):%Y-%m-%d}:ORIGINAL:{msg.chat.id}:{msg.message_id}"
-                action = query.data or ""
-                try:
-                    if action in ("menu:list", "menu:progress"):
-                        if key not in state and msg.text and msg.text.startswith("🔮 PREDIKSI "):
-                            state[key] = msg.text
-                        if key in state:
-                            content = list_message() if action == "menu:list" else progress_message(datetime.now(WIB))
-                            await bot.edit_message_text(chat_id=msg.chat.id, message_id=msg.message_id,
-                                                        text=content, reply_markup=back_keyboard())
-                    elif action == "menu:back" and key in state:
-                        await bot.edit_message_text(chat_id=msg.chat.id, message_id=msg.message_id,
-                                                    text=state[key], reply_markup=menu_keyboard())
-                    await query.answer()
-                except Exception as exc:
-                    print(f"Menu callback failed: {type(exc).__name__}: {exc}")
-                    await query.answer("Coba lagi sebentar.", show_alert=False)
-        state[f"{datetime.now(WIB):%Y-%m-%d}:UPDATES_OFFSET"] = update.update_id + 1
-    if updates:
-        save_state(state, sha)
-        return read_state()
-    return state, sha
+
 
 async def main():
     now = datetime.now(WIB)
@@ -240,7 +207,6 @@ async def main():
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     chat_id = os.environ["TELEGRAM_CHAT_ID"]
     async with Bot(token=token) as bot:
-        state, sha = await handle_commands(bot, chat_id, state, sha)
         for name, planned in due:
             key = f"{planned:%Y-%m-%d}:{name}"
             if key in state:
