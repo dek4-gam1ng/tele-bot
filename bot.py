@@ -131,65 +131,10 @@ def off_today(day):
     return [name for _, _, name in TIMES if is_off(name, day)]
 
 
-def list_message():
-    lines = ["📋 DAFTAR PASARAN", "━━━━━━━━━━━━━━━━━━"]
-    for index, (_, _, name) in enumerate(TIMES, 1):
-        if name == "TEXAS":
-            name += " (OFF: Senin)"
-        elif name == "SGP":
-            name += " (OFF: Selasa, Jumat)"
-        elif name == "MAGNUM4D":
-            name += " (OFF: Senin, Selasa, Kamis, Jumat)"
-        lines.append(f"{index:02d}. {name}")
-    lines.extend(["━━━━━━━━━━━━━━━━━━", f"📊 TOTAL: {len(TIMES)} PASARAN"])
-    return "\n".join(lines)
-
-
-def progress_message(now, state):
-    done, pending, off = [], [], []
-    for hour, minute, name in TIMES:
-        if is_off(name, now.weekday()):
-            off.append(name)
-        elif f"{now:%Y-%m-%d}:{name}" in state:
-            done.append(name)
-        else:
-            pending.append(name)
-    lines = [
-        "📊 PROGRESS PREDIKSI HARI INI",
-        f"🕒 {now:%d/%m/%Y %H:%M} WIB",
-        "━━━━━━━━━━━━━━━━━━",
-    ]
-    for title, items in (
-        ("✅ SUDAH DIKIRIM", done),
-        ("⏳ BELUM DIKIRIM", pending),
-        ("💤 OFF HARI INI", off),
-    ):
-        lines.extend(["", f"{title} ({len(items)})", *items])
-    lines.extend(["", "━━━━━━━━━━━━━━━━━━", f"📊 TOTAL AKTIF: {len(done) + len(pending)} PASARAN"])
-    return "\n".join(lines)
-
-
 def menu_keyboard(state):
     return InlineKeyboardMarkup([[
         InlineKeyboardButton("🔮 BUKA LIST PASARAN / PROGRESS", url="https://t.me/theprediksitogelbot/pasaran"),
     ]])
-
-
-async def update_menu_posts(bot, chat_id, state, sha, now):
-    for label, content in (("LIST", list_message()), ("PROGRESS", progress_message(now, state))):
-        key = f"META:{label}_ID"
-        if key not in state:
-            msg = await bot.send_message(chat_id=chat_id, text=content)
-            state[key] = msg.message_id
-            save_state(state, sha)
-            state, sha = read_state()
-        else:
-            try:
-                await bot.edit_message_text(chat_id=chat_id, message_id=state[key], text=content)
-            except Exception as exc:
-                if "Message is not modified" not in str(exc):
-                    print(f"{label} update failed: {exc}")
-    return state, sha
 
 
 async def main():
@@ -223,11 +168,6 @@ async def main():
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     chat_id = os.environ["TELEGRAM_CHAT_ID"]
     async with Bot(token=token) as bot:
-        try:
-            state, sha = await update_menu_posts(bot, chat_id, state, sha, now)
-        except Exception as exc:
-            print(f"Menu setup failed, continuing predictions: {exc}")
-            state, sha = read_state()
         for name, planned in due:
             key = f"{planned:%Y-%m-%d}:{name}"
             if key in state:
@@ -239,11 +179,6 @@ async def main():
             # Reload the new SHA before recording the next delivery.
             state, sha = read_state()
             print(f"Sent {key}.")
-        if due:
-            try:
-                await update_menu_posts(bot, chat_id, state, sha, now)
-            except Exception as exc:
-                print(f"Progress refresh failed: {exc}")
 
 if __name__ == "__main__":
     asyncio.run(main())
