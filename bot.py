@@ -138,12 +138,12 @@ def list_message():
     return "\n".join(lines)
 
 
-def progress_message(now):
+def progress_message(now, state):
     done, pending, off = [], [], []
     for hour, minute, name in TIMES:
         if is_off(name, now.weekday()):
             off.append(name)
-        elif now >= now.replace(hour=hour, minute=minute, second=0, microsecond=0) + timedelta(minutes=30):
+        elif f"{now:%Y-%m-%d}:{name}" in state:
             done.append(name)
         else:
             pending.append(name)
@@ -153,8 +153,8 @@ def progress_message(now):
         "━━━━━━━━━━━━━━━━━━",
     ]
     for title, items in (
-        ("✅ SUDAH PREDIKSI", done),
-        ("⏳ BELUM PREDIKSI", pending),
+        ("✅ SUDAH DIKIRIM", done),
+        ("⏳ BELUM DIKIRIM", pending),
         ("💤 OFF HARI INI", off),
     ):
         lines.extend(["", f"{title} ({len(items)})", *items])
@@ -174,7 +174,7 @@ def menu_keyboard(state):
 
 
 async def update_menu_posts(bot, chat_id, state, sha, now):
-    for label, content in (("LIST", list_message()), ("PROGRESS", progress_message(now))):
+    for label, content in (("LIST", list_message()), ("PROGRESS", progress_message(now, state))):
         key = f"META:{label}_ID"
         if key not in state:
             msg = await bot.send_message(chat_id=chat_id, text=content)
