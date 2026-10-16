@@ -70,7 +70,8 @@ def make_message(name: str, now: datetime) -> str:
         "🎯 2D\n"
         f"{pick(bbfs[3:], 2)} | {pick(poltar[3:], 2)}\n\n"
         "━━━━━━━━━━━━━━━━━━\n"
-        "🤞 SALAM JP PAUS & TETAP UPS!\n\n"
+        + (f"💤 OFF HARI INI: {' • '.join(off_today(now.weekday()))}\n━━━━━━━━━━━━━━━━━━\n" if off_today(now.weekday()) else "")
+        + "🤞 SALAM JP PAUS & TETAP UPS!\n\n"
         "🔗 Join VIP :\n"
         "https://mez.ink/theprediksitogel"
     )
@@ -121,15 +122,21 @@ def save_state(state, sha):
 
 
 def is_off(name, day):
-    return (name == "SGP" and day in (1, 4)) or (
-        name == "MAGNUM4D" and day not in (2, 5, 6)
-    )
+    return ((name == "TEXAS" and day == 0) or
+            (name == "SGP" and day in (1, 4)) or
+            (name == "MAGNUM4D" and day not in (2, 5, 6)))
+
+
+def off_today(day):
+    return [name for _, _, name in TIMES if is_off(name, day)]
 
 
 def list_message():
     lines = ["📋 DAFTAR PASARAN", "━━━━━━━━━━━━━━━━━━"]
     for index, (_, _, name) in enumerate(TIMES, 1):
-        if name == "SGP":
+        if name == "TEXAS":
+            name += " (OFF: Senin)"
+        elif name == "SGP":
             name += " (OFF: Selasa, Jumat)"
         elif name == "MAGNUM4D":
             name += " (OFF: Senin, Selasa, Kamis, Jumat)"
@@ -181,12 +188,12 @@ async def update_menu_posts(bot, chat_id, state, sha, now):
             state[key] = msg.message_id
             save_state(state, sha)
             state, sha = read_state()
-        elif label == "PROGRESS":
+        else:
             try:
                 await bot.edit_message_text(chat_id=chat_id, message_id=state[key], text=content)
             except Exception as exc:
                 if "Message is not modified" not in str(exc):
-                    print(f"Progress update failed: {exc}")
+                    print(f"{label} update failed: {exc}")
     return state, sha
 
 
@@ -208,9 +215,7 @@ async def main():
             planned = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
             delay = (now - planned).total_seconds() / 60
             if 0 <= delay <= CATCHUP_MINUTES:
-                if name == "SGP" and now.weekday() in (1, 4):
-                    continue
-                if name == "MAGNUM4D" and now.weekday() not in (2, 5, 6):
+                if is_off(name, now.weekday()):
                     continue
                 due.append((name, planned))
 
