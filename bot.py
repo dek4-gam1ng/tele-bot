@@ -205,6 +205,9 @@ async def main():
     names = {name for _, _, name in TIMES}
     if manual and manual not in names:
         raise ValueError(f"Unknown prediction name: {manual}")
+    if manual and is_off(manual, now.weekday()):
+        print(f"{manual} is OFF today; skipping manual prediction.")
+        return
 
     state, sha = read_state()
     due = []
