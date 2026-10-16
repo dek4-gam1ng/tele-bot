@@ -120,6 +120,72 @@ def save_state(state, sha):
     github_state("PUT", payload)
 
 
+def is_off(name, day):
+    return (name == "SGP" and day in (1, 4)) or (
+        name == "MAGNUM4D" and day not in (2, 5, 6)
+    )
+
+
+def list_message():
+    lines = ["📋 DAFTAR PASARAN", "━━━━━━━━━━━━━━━━━━"]
+    for index, (_, _, name) in enumerate(TIMES, 1):
+        if name == "SGP":
+            name += " (OFF: Selasa, Jumat)"
+        elif name == "MAGNUM4D":
+            name += " (OFF: Senin, Selasa, Kamis, Jumat)"
+        lines.append(f"{index:02d}. {name}")
+    lines.extend(["━━━━━━━━━━━━━━━━━━", f"📊 TOTAL: {len(TIMES)} PASARAN"])
+    return "\n".join(lines)
+
+
+def progress_message(now):
+    done, pending, off = [], [], []
+    for hour, minute, name in TIMES:
+        if is_off(name, now.weekday()):
+            off.append(name)
+        elif now >= now.replace(hour=hour, minute=minute, second=0, microsecond=0) + timedelta(minutes=30):
+            done.append(name)
+        else:
+            pending.append(name)
+    lines = [
+        "📊 PROGRESS PREDIKSI HARI INI",
+        f"🕒 {now:%d/%m/%Y %H:%M} WIB",
+        "━━━━━━━━━━━━━━━━━━",
+    ]
+    for title, items in (
+        ("✅ SUDAH PREDIKSI", done),
+        ("⏳ BELUM PREDIKSI", pending),
+        ("💤 OFF HARI INI", off),
+    ):
+        lines.extend(["", f"{title} ({len(items)})", *items])
+    lines.extend(["", "━━━━━━━━━━━━━━━━━━", f"📊 TOTAL AKTIF: {len(done) + len(pending)} PASARAN"])
+    return "\n".join(lines)
+
+
+async def handle_commands(bot, chat_id, state, sha):
+    # Poll updates during the existing five-minute QStash workflow.
+    offset_key = f"{datetime.now(WIB):%Y-%m-%d}:UPDATES_OFFSET"
+    previous = max(
+        (int(v) for k, v in state.items() if k.endswith(":UPDATES_OFFSET")),
+        default=0,
+    )
+    updates = await bot.get_updates(offset=previous, timeout=0, limit=100)
+    for update in updates:
+        msg = update.effective_message
+        target = update.effective_chat
+        if msg and target and str(target.id) == str(chat_id) and msg.text:
+            command = msg.text.split()[0].split("@")[0].lower()
+            if command == "/list":
+                await bot.send_message(chat_id=chat_id, text=list_message())
+            elif command == "/progress":
+                await bot.send_message(chat_id=chat_id, text=progress_message(datetime.now(WIB)))
+        state[offset_key] = update.update_id + 1
+    if updates:
+        save_state(state, sha)
+        return read_state()
+    return state, sha
+
+
 async def main():
     now = datetime.now(WIB)
     manual = os.getenv("MANUAL_NAME", "").strip().upper()
@@ -146,11 +212,11 @@ async def main():
 
     if not due:
         print("No scheduled messages due.")
-        return
 
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     chat_id = os.environ["TELEGRAM_CHAT_ID"]
     async with Bot(token=token) as bot:
+        state, sha = await handle_commands(bot, chat_id, state, sha)
         for name, planned in due:
             key = f"{planned:%Y-%m-%d}:{name}"
             if key in state:
