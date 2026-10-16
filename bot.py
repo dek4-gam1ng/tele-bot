@@ -47,11 +47,12 @@ CATCHUP_MINUTES = 15
 
 
 def make_message(name: str, now: datetime) -> str:
-    # Five unique digits per set; at most two shared digits between sets.
-    bbfs = secrets.SystemRandom().sample(range(10), 5)
+    # Digits may repeat within each set; at most two distinct digits shared.
+    rng = secrets.SystemRandom()
+    bbfs = [rng.randrange(10) for _ in range(5)]
     while True:
-        poltar = secrets.SystemRandom().sample(range(10), 5)
-        if len(set(bbfs) & set(poltar)) <= 2:
+        poltar = [rng.randrange(10) for _ in range(5)]
+        if len(set(bbfs) & set(poltar)) <= 2 and bbfs != poltar:
             break
 
     def pick(source, count):
