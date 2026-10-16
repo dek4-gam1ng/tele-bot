@@ -170,13 +170,8 @@ def progress_message(now, state):
 
 
 def menu_keyboard(state):
-    list_id = state.get("META:LIST_ID")
-    progress_id = state.get("META:PROGRESS_ID")
-    if not list_id or not progress_id:
-        return None
     return InlineKeyboardMarkup([[
-        InlineKeyboardButton("📋 LIST PASARAN", url=f"https://t.me/theprediksitogel/{list_id}"),
-        InlineKeyboardButton("📊 PROGRESS", url=f"https://t.me/theprediksitogel/{progress_id}"),
+        InlineKeyboardButton("🔮 BUKA LIST PASARAN / PROGRESS", url="https://t.me/theprediksitogelbot/pasaran"),
     ]])
 
 
