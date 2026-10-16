@@ -9,7 +9,7 @@ import urllib.request
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from telegram import Bot
+from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
 
 WIB = ZoneInfo("Asia/Jakarta")
 # Local WIB hours and minutes, in posting order.
@@ -162,29 +162,53 @@ def progress_message(now):
     return "\n".join(lines)
 
 
+def menu_keyboard():
+    return InlineKeyboardMarkup([[
+        InlineKeyboardButton("📋 LIST PASARAN", callback_data="menu:list"),
+        InlineKeyboardButton("📊 PROGRESS", callback_data="menu:progress"),
+    ]])
+
+
+def back_keyboard():
+    return InlineKeyboardMarkup([[
+        InlineKeyboardButton("⬅️ KEMBALI", callback_data="menu:back"),
+    ]])
+
+
 async def handle_commands(bot, chat_id, state, sha):
-    # Poll updates during the existing five-minute QStash workflow.
-    offset_key = f"{datetime.now(WIB):%Y-%m-%d}:UPDATES_OFFSET"
+    # Read button presses during existing QStash runs.
     previous = max(
         (int(v) for k, v in state.items() if k.endswith(":UPDATES_OFFSET")),
         default=0,
     )
     updates = await bot.get_updates(offset=previous, timeout=0, limit=100)
     for update in updates:
-        msg = update.effective_message
-        target = update.effective_chat
-        if msg and target and str(target.id) == str(chat_id) and msg.text:
-            command = msg.text.split()[0].split("@")[0].lower()
-            if command == "/list":
-                await bot.send_message(chat_id=chat_id, text=list_message())
-            elif command == "/progress":
-                await bot.send_message(chat_id=chat_id, text=progress_message(datetime.now(WIB)))
-        state[offset_key] = update.update_id + 1
+        query = update.callback_query
+        if query:
+            msg = query.message
+            if msg and str(msg.chat.id) == str(chat_id):
+                key = f"{datetime.now(WIB):%Y-%m-%d}:ORIGINAL:{msg.chat.id}:{msg.message_id}"
+                action = query.data or ""
+                try:
+                    if action in ("menu:list", "menu:progress"):
+                        if key not in state and msg.text and msg.text.startswith("🔮 PREDIKSI "):
+                            state[key] = msg.text
+                        if key in state:
+                            content = list_message() if action == "menu:list" else progress_message(datetime.now(WIB))
+                            await bot.edit_message_text(chat_id=msg.chat.id, message_id=msg.message_id,
+                                                        text=content, reply_markup=back_keyboard())
+                    elif action == "menu:back" and key in state:
+                        await bot.edit_message_text(chat_id=msg.chat.id, message_id=msg.message_id,
+                                                    text=state[key], reply_markup=menu_keyboard())
+                    await query.answer()
+                except Exception as exc:
+                    print(f"Menu callback failed: {type(exc).__name__}: {exc}")
+                    await query.answer("Coba lagi sebentar.", show_alert=False)
+        state[f"{datetime.now(WIB):%Y-%m-%d}:UPDATES_OFFSET"] = update.update_id + 1
     if updates:
         save_state(state, sha)
         return read_state()
     return state, sha
-
 
 async def main():
     now = datetime.now(WIB)
@@ -222,7 +246,7 @@ async def main():
             if key in state:
                 print(f"Already sent {key}; skipping.")
                 continue
-            await bot.send_message(chat_id=chat_id, text=make_message(name, now))
+            await bot.send_message(chat_id=chat_id, text=make_message(name, now), reply_markup=menu_keyboard())
             state[key] = datetime.now(WIB).isoformat()
             save_state(state, sha)
             # Reload the new SHA before recording the next delivery.
