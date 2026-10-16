@@ -108,7 +108,7 @@ def read_state():
 def save_state(state, sha):
     # Keep only recent days to avoid growing the file forever.
     cutoff = (datetime.now(WIB).date() - timedelta(days=7)).isoformat()
-    state = {key: value for key, value in state.items() if key[:10] >= cutoff}
+    state = {key: value for key, value in state.items() if (key.startswith("META:") or key[:10] >= cutoff)}
     payload = {
         "message": "Record Telegram schedule delivery",
         "content": base64.b64encode(
@@ -162,19 +162,32 @@ def progress_message(now):
     return "\n".join(lines)
 
 
-def menu_keyboard():
+def menu_keyboard(state):
+    list_id = state.get("META:LIST_ID")
+    progress_id = state.get("META:PROGRESS_ID")
+    if not list_id or not progress_id:
+        return None
     return InlineKeyboardMarkup([[
-        InlineKeyboardButton("📋 LIST PASARAN", callback_data="menu:list"),
-        InlineKeyboardButton("📊 PROGRESS", callback_data="menu:progress"),
+        InlineKeyboardButton("📋 LIST PASARAN", url=f"https://t.me/theprediksitogel/{list_id}"),
+        InlineKeyboardButton("📊 PROGRESS", url=f"https://t.me/theprediksitogel/{progress_id}"),
     ]])
 
 
-def back_keyboard():
-    return InlineKeyboardMarkup([[
-        InlineKeyboardButton("⬅️ KEMBALI", callback_data="menu:back"),
-    ]])
-
-
+async def update_menu_posts(bot, chat_id, state, sha, now):
+    for label, content in (("LIST", list_message()), ("PROGRESS", progress_message(now))):
+        key = f"META:{label}_ID"
+        if key not in state:
+            msg = await bot.send_message(chat_id=chat_id, text=content)
+            state[key] = msg.message_id
+            save_state(state, sha)
+            state, sha = read_state()
+        elif label == "PROGRESS":
+            try:
+                await bot.edit_message_text(chat_id=chat_id, message_id=state[key], text=content)
+            except Exception as exc:
+                if "Message is not modified" not in str(exc):
+                    print(f"Progress update failed: {exc}")
+    return state, sha
 
 
 async def main():
@@ -207,17 +220,27 @@ async def main():
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     chat_id = os.environ["TELEGRAM_CHAT_ID"]
     async with Bot(token=token) as bot:
+        try:
+            state, sha = await update_menu_posts(bot, chat_id, state, sha, now)
+        except Exception as exc:
+            print(f"Menu setup failed, continuing predictions: {exc}")
+            state, sha = read_state()
         for name, planned in due:
             key = f"{planned:%Y-%m-%d}:{name}"
             if key in state:
                 print(f"Already sent {key}; skipping.")
                 continue
-            await bot.send_message(chat_id=chat_id, text=make_message(name, now), reply_markup=menu_keyboard())
+            await bot.send_message(chat_id=chat_id, text=make_message(name, now), reply_markup=menu_keyboard(state))
             state[key] = datetime.now(WIB).isoformat()
             save_state(state, sha)
             # Reload the new SHA before recording the next delivery.
             state, sha = read_state()
             print(f"Sent {key}.")
+        if due:
+            try:
+                await update_menu_posts(bot, chat_id, state, sha, now)
+            except Exception as exc:
+                print(f"Progress refresh failed: {exc}")
 
 if __name__ == "__main__":
     asyncio.run(main())
