@@ -71,9 +71,10 @@ def make_message(name: str, now: datetime) -> str:
         f"{pick(bbfs[3:], 2)} | {pick(poltar[3:], 2)}\n\n"
         "━━━━━━━━━━━━━━━━━━\n"
         + (f"💤 OFF HARI INI: {' • '.join(off_today(now.weekday()))}\n━━━━━━━━━━━━━━━━━━\n" if off_today(now.weekday()) else "")
-        + "🤞 SALAM JP PAUS & TETAP UPS!\n\n"
-        "🔗 Join VIP :\n"
-        "https://mez.ink/theprediksitogel"
+        + "🤞 SALAM JP PAUS & TETAP UPS!\n"
+        "━━━━━━━━━━━━━━━━━━\n"
+        "🌐 AKUN VIP · FACEBOOK · 𝕏\n"
+        "🔗 https://mez.ink/theprediksitogel"
     )
 
 
