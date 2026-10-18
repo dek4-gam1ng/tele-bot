@@ -44,9 +44,13 @@ TIMES = [
 ]
 STATE_PATH = ".telegram-sent.json"
 CATCHUP_MINUTES = 15
+VIP_LINKS = (
+    "https://mez.ink/theprediksijitu",
+    "https://heylink.me/theprediksijitu",
+)
 
 
-def make_message(name: str, now: datetime) -> str:
+def make_message(name: str, now: datetime, vip_url: str) -> str:
     rng = secrets.SystemRandom()
     digits = ''.join(str(rng.randrange(10)) for _ in range(5))
 
@@ -60,7 +64,7 @@ def make_message(name: str, now: datetime) -> str:
         + "🤞 SALAM JP PAUS & TETAP UPS!\n"
         "━━━━━━━━━━━━━━━━━━\n"
         "🌐 AKUN VIP · FACEBOOK · 𝕏\n"
-        "🔗 https://mez.ink/theprediksitogel"
+        f"🔗 {vip_url}"
     )
 
 
@@ -160,8 +164,10 @@ async def main():
             if key in state:
                 print(f"Already sent {key}; skipping.")
                 continue
-            sent = await bot.send_message(chat_id=chat_id, text=make_message(name, now), reply_markup=menu_keyboard(state))
+            vip_index = int(state.get("META:VIP_NEXT", 0)) % len(VIP_LINKS)
+            sent = await bot.send_message(chat_id=chat_id, text=make_message(name, now, VIP_LINKS[vip_index]), reply_markup=menu_keyboard(state))
             state[key] = {"sent_at": datetime.now(WIB).isoformat(), "message_id": sent.message_id}
+            state["META:VIP_NEXT"] = (vip_index + 1) % len(VIP_LINKS)
             save_state(state, sha)
             # Reload the new SHA before recording the next delivery.
             state, sha = read_state()
