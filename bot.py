@@ -4,7 +4,6 @@ import base64
 import json
 import os
 import secrets
-import re
 import urllib.error
 import urllib.request
 from datetime import datetime, timedelta
@@ -119,64 +118,6 @@ def off_today(day):
     return [name for _, _, name in TIMES if is_off(name, day)]
 
 
-async def handle_result_commands(bot, state, sha, chat_id):
-    """Process admin-only result replies for any market with a saved post ID."""
-    admin_id = os.getenv("TELEGRAM_ADMIN_ID", "").strip()
-    if not admin_id:
-        print("TELEGRAM_ADMIN_ID missing; skipping manual commands.")
-        return state, sha
-
-    markets = {name.lower().replace(" ", ""): name for _, _, name in TIMES}
-    offset = int(state.get("META:UPDATE_OFFSET", 0))
-    updates = await bot.get_updates(offset=offset, timeout=0, allowed_updates=["message"])
-    for update in updates:
-        state["META:UPDATE_OFFSET"] = update.update_id + 1
-        message = update.effective_message
-        if not message or not message.text or not message.from_user:
-            continue
-        if str(message.from_user.id) != admin_id or message.chat.type != "private":
-            continue
-
-        command = re.fullmatch(r"/([a-z0-9]+)(?:@\w+)?\s+(\d{4})\s+(\d{5})", message.text.strip(), re.I)
-        if not command:
-            continue
-        short_name, result, digits = command.groups()
-        market = markets.get(short_name.lower())
-        if not market:
-            continue
-
-        today = datetime.now(WIB).strftime("%Y-%m-%d")
-        sent = state.get(f"{today}:{market}")
-        message_id = sent.get("message_id") if isinstance(sent, dict) else None
-        if not message_id:
-            await message.reply_text(f"ID posting {market} hari ini belum tersimpan. Tunggu prediksi berikutnya.")
-            continue
-
-        reply_key = f"META:RESULT_REPLY:{today}:{market}"
-        legacy_key = f"META:SYDNEY_REPLY:{today}" if market == "SYDNEY" else None
-        if state.get(reply_key) or (legacy_key and state.get(legacy_key)):
-            await message.reply_text(f"Reply hasil {market} hari ini sudah dikirim.")
-            continue
-
-        mark = " (✅)" if set(result).issubset(set(digits)) else ""
-        body = (
-            f"{market} SAH : {result}\n"
-            f"{digits}{mark}\n\n"
-            "Salam JP & tetap UPS! 🔥\n\n"
-            "Jangan lupa support lewat LINK 💛"
-        )
-        await bot.send_message(chat_id=chat_id, text=body, reply_to_message_id=message_id)
-        state[reply_key] = True
-        save_state(state, sha)
-        state, sha = read_state()
-        await message.reply_text(f"Reply {market} berhasil dikirim ke channel.")
-
-    if updates:
-        save_state(state, sha)
-        return read_state()
-    return state, sha
-
-
 def menu_keyboard(state):
     return InlineKeyboardMarkup([[
         InlineKeyboardButton("🔮 BUKA LIST PASARAN / PROGRESS", url="https://t.me/theprediksitogelbot/pasaran"),
@@ -214,7 +155,6 @@ async def main():
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     chat_id = os.environ["TELEGRAM_CHAT_ID"]
     async with Bot(token=token) as bot:
-        state, sha = await handle_result_commands(bot, state, sha, chat_id)
         for name, planned in due:
             key = f"{planned:%Y-%m-%d}:{name}"
             if key in state:
