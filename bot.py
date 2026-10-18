@@ -53,8 +53,8 @@ def make_message(name: str, now: datetime) -> str:
     return (
         f"🔮 PREDIKSI {name} ({now:%d/%m})\n"
         "━━━━━━━━━━━━━━━━━━\n"
-        f"⚡ {digits}\n"
-        f"🎯 {digits[:4]}  |  {digits[2:]}  |  {digits[3:]}\n"
+        f"⚡ {digits}\n\n"
+        f"🎯 {digits[:4]} | {digits[2:]} | {digits[3:]}\n"
         "━━━━━━━━━━━━━━━━━━\n"
         + (f"💤 OFF HARI INI: {' • '.join(off_today(now.weekday()))}\n━━━━━━━━━━━━━━━━━━\n" if off_today(now.weekday()) else "")
         + "🤞 SALAM JP PAUS & TETAP UPS!\n"
