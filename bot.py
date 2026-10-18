@@ -119,18 +119,16 @@ def off_today(day):
     return [name for _, _, name in TIMES if is_off(name, day)]
 
 
-async def handle_sydney_commands(bot, state, sha, chat_id):
-    """Reply to today's Sydney prediction using its saved Telegram message ID."""
+async def handle_result_commands(bot, state, sha, chat_id):
+    """Process admin-only result replies for any market with a saved post ID."""
     admin_id = os.getenv("TELEGRAM_ADMIN_ID", "").strip()
     if not admin_id:
         print("TELEGRAM_ADMIN_ID missing; skipping manual commands.")
         return state, sha
 
+    markets = {name.lower().replace(" ", ""): name for _, _, name in TIMES}
     offset = int(state.get("META:UPDATE_OFFSET", 0))
     updates = await bot.get_updates(offset=offset, timeout=0, allowed_updates=["message"])
-    if not updates:
-        return state, sha
-
     for update in updates:
         state["META:UPDATE_OFFSET"] = update.update_id + 1
         message = update.effective_message
@@ -139,28 +137,30 @@ async def handle_sydney_commands(bot, state, sha, chat_id):
         if str(message.from_user.id) != admin_id or message.chat.type != "private":
             continue
 
-        match = re.fullmatch(r"/sydney(?:@\w+)?\s+(\d{4})\s+(\d{5})", message.text.strip(), re.I)
-        if not match:
-            if message.text.lower().startswith("/sydney"):
-                await message.reply_text("Format: /sydney 0196 01649")
+        command = re.fullmatch(r"/([a-z0-9]+)(?:@\w+)?\s+(\d{4})\s+(\d{5})", message.text.strip(), re.I)
+        if not command:
+            continue
+        short_name, result, digits = command.groups()
+        market = markets.get(short_name.lower())
+        if not market:
             continue
 
-        result, digits = match.groups()
         today = datetime.now(WIB).strftime("%Y-%m-%d")
-        sent = state.get(f"{today}:SYDNEY")
+        sent = state.get(f"{today}:{market}")
         message_id = sent.get("message_id") if isinstance(sent, dict) else None
         if not message_id:
-            await message.reply_text("Posting SYDNEY hari ini belum punya ID tersimpan. Tunggu posting berikutnya.")
+            await message.reply_text(f"ID posting {market} hari ini belum tersimpan. Tunggu prediksi berikutnya.")
             continue
 
-        reply_key = f"META:SYDNEY_REPLY:{today}"
-        if state.get(reply_key):
-            await message.reply_text("Reply hasil SYDNEY hari ini sudah dikirim.")
+        reply_key = f"META:RESULT_REPLY:{today}:{market}"
+        legacy_key = f"META:SYDNEY_REPLY:{today}" if market == "SYDNEY" else None
+        if state.get(reply_key) or (legacy_key and state.get(legacy_key)):
+            await message.reply_text(f"Reply hasil {market} hari ini sudah dikirim.")
             continue
 
         mark = " (✅)" if set(result).issubset(set(digits)) else ""
         body = (
-            f"SYDNEY SAH : {result}\n"
+            f"{market} SAH : {result}\n"
             f"{digits}{mark}\n\n"
             "Salam JP & tetap UPS! 🔥\n\n"
             "Jangan lupa support lewat LINK 💛"
@@ -169,10 +169,12 @@ async def handle_sydney_commands(bot, state, sha, chat_id):
         state[reply_key] = True
         save_state(state, sha)
         state, sha = read_state()
-        await message.reply_text("Reply SYDNEY berhasil dikirim ke channel.")
+        await message.reply_text(f"Reply {market} berhasil dikirim ke channel.")
 
-    save_state(state, sha)
-    return read_state()
+    if updates:
+        save_state(state, sha)
+        return read_state()
+    return state, sha
 
 
 def menu_keyboard(state):
@@ -212,7 +214,7 @@ async def main():
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     chat_id = os.environ["TELEGRAM_CHAT_ID"]
     async with Bot(token=token) as bot:
-        state, sha = await handle_sydney_commands(bot, state, sha, chat_id)
+        state, sha = await handle_result_commands(bot, state, sha, chat_id)
         for name, planned in due:
             key = f"{planned:%Y-%m-%d}:{name}"
             if key in state:
