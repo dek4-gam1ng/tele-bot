@@ -157,7 +157,7 @@ async def handle_sydney_commands(bot, state, sha, chat_id):
         checked = " (✅)" if set(result).issubset(set(bbfs)) else ""
         body = (
             f"SYDNEY SAH : {result}\n"
-            f"BBFS {bbfs}{checked}\n\n"
+            f"{bbfs}{checked}\n\n"
             "Salam JP & tetap UPS! 🔥\n\n"
             "Jangan lupa support lewat LINK 💛"
         )
