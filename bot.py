@@ -4,6 +4,7 @@ import base64
 import json
 import os
 import secrets
+import re
 import urllib.error
 import urllib.request
 from datetime import datetime, timedelta
@@ -118,6 +119,58 @@ def off_today(day):
     return [name for _, _, name in TIMES if is_off(name, day)]
 
 
+async def handle_sydney_commands(bot, state, sha, chat_id):
+    """Process private /sydney commands on each workflow run."""
+    admin_id = os.getenv("TELEGRAM_ADMIN_ID", "").strip()
+    if not admin_id:
+        print("TELEGRAM_ADMIN_ID not configured; manual commands disabled.")
+        return state, sha
+
+    offset = int(state.get("META:UPDATE_OFFSET", 0))
+    updates = await bot.get_updates(offset=offset, timeout=0, allowed_updates=["message"])
+    for update in updates:
+        state["META:UPDATE_OFFSET"] = update.update_id + 1
+        message = update.effective_message
+        if not message or not message.text or not message.chat:
+            continue
+        if str(message.from_user.id) != admin_id or message.chat.type != "private":
+            continue
+        match = re.fullmatch(r"/sydney(?:@\\w+)?\\s+(\\d{4})\\s+(\\d{5})", message.text.strip(), re.I)
+        if not match:
+            if message.text.lower().startswith("/sydney"):
+                await message.reply_text("Format: /sydney 0196 01649")
+            continue
+
+        result, bbfs = match.groups()
+        today = datetime.now(WIB).strftime("%Y-%m-%d")
+        key = f"{today}:SYDNEY"
+        sent = state.get(key)
+        target_id = sent.get("message_id") if isinstance(sent, dict) else None
+        if not target_id:
+            await message.reply_text("ID posting SYDNEY hari ini belum tersimpan. Coba pada posting berikutnya.")
+            continue
+        if state.get(f"META:SYDNEY_REPLY:{today}"):
+            await message.reply_text("Hasil SYDNEY hari ini sudah dibalas. Tidak dikirim ulang.")
+            continue
+
+        # The checkmark is only shown if every distinct result digit is in BBFS.
+        checked = " (✅)" if set(result).issubset(set(bbfs)) else ""
+        body = (
+            f"SYDNEY SAH : {result}\\n"
+            f"BBFS {bbfs}{checked}\\n\\n"
+            "Salam JP & tetap UPS! 🔥\\n\\n"
+            "Jangan lupa support lewat LINK 💛"
+        )
+        await bot.send_message(chat_id=chat_id, text=body, reply_to_message_id=target_id)
+        state[f"META:SYDNEY_REPLY:{today}"] = True
+        await message.reply_text("Reply SYDNEY berhasil dikirim ke channel.")
+        save_state(state, sha)
+        state, sha = read_state()
+
+    save_state(state, sha)
+    return read_state()
+
+
 def menu_keyboard(state):
     return InlineKeyboardMarkup([[
         InlineKeyboardButton("🔮 BUKA LIST PASARAN / PROGRESS", url="https://t.me/theprediksitogelbot/pasaran"),
@@ -155,13 +208,14 @@ async def main():
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     chat_id = os.environ["TELEGRAM_CHAT_ID"]
     async with Bot(token=token) as bot:
+        state, sha = await handle_sydney_commands(bot, state, sha, chat_id)
         for name, planned in due:
             key = f"{planned:%Y-%m-%d}:{name}"
             if key in state:
                 print(f"Already sent {key}; skipping.")
                 continue
-            await bot.send_message(chat_id=chat_id, text=make_message(name, now), reply_markup=menu_keyboard(state))
-            state[key] = datetime.now(WIB).isoformat()
+            sent = await bot.send_message(chat_id=chat_id, text=make_message(name, now), reply_markup=menu_keyboard(state))
+            state[key] = {"sent_at": datetime.now(WIB).isoformat(), "message_id": sent.message_id}
             save_state(state, sha)
             # Reload the new SHA before recording the next delivery.
             state, sha = read_state()
