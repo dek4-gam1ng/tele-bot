@@ -135,19 +135,19 @@ async def handle_sydney_commands(bot, state, sha, chat_id):
             continue
         if str(message.from_user.id) != admin_id or message.chat.type != "private":
             continue
-        match = re.fullmatch(r"/sydney(?:@\w+)?\s+(\d{4})\s+(\d{5})", message.text.strip(), re.I)
+        match = re.fullmatch(r"/sydney(?:@\w+)?\s+(\d{4})\s+(\d{5})(?:\s+(\d+))?", message.text.strip(), re.I)
         if not match:
             if message.text.lower().startswith("/sydney"):
-                await message.reply_text("Format: /sydney 0196 01649")
+                await message.reply_text("Format: /sydney 0196 01649 90 (ID pesan opsional)")
             continue
 
-        result, bbfs = match.groups()
+        result, bbfs, specified_message_id = match.groups()
         today = datetime.now(WIB).strftime("%Y-%m-%d")
         key = f"{today}:SYDNEY"
         sent = state.get(key)
-        target_id = sent.get("message_id") if isinstance(sent, dict) else None
+        target_id = int(specified_message_id) if specified_message_id else (sent.get("message_id") if isinstance(sent, dict) else None)
         if not target_id:
-            await message.reply_text("ID posting SYDNEY hari ini belum tersimpan. Coba pada posting berikutnya.")
+            await message.reply_text("ID posting belum tersimpan. Tambahkan ID pesan, contoh: /sydney 0196 01649 90")
             continue
         if state.get(f"META:SYDNEY_REPLY:{today}"):
             await message.reply_text("Hasil SYDNEY hari ini sudah dibalas. Tidak dikirim ulang.")
