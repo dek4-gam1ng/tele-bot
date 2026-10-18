@@ -135,7 +135,7 @@ async def handle_sydney_commands(bot, state, sha, chat_id):
             continue
         if str(message.from_user.id) != admin_id or message.chat.type != "private":
             continue
-        match = re.fullmatch(r"/sydney(?:@\\w+)?\\s+(\\d{4})\\s+(\\d{5})", message.text.strip(), re.I)
+        match = re.fullmatch(r"/sydney(?:@\w+)?\s+(\d{4})\s+(\d{5})", message.text.strip(), re.I)
         if not match:
             if message.text.lower().startswith("/sydney"):
                 await message.reply_text("Format: /sydney 0196 01649")
@@ -156,9 +156,9 @@ async def handle_sydney_commands(bot, state, sha, chat_id):
         # The checkmark is only shown if every distinct result digit is in BBFS.
         checked = " (✅)" if set(result).issubset(set(bbfs)) else ""
         body = (
-            f"SYDNEY SAH : {result}\\n"
-            f"BBFS {bbfs}{checked}\\n\\n"
-            "Salam JP & tetap UPS! 🔥\\n\\n"
+            f"SYDNEY SAH : {result}\n"
+            f"BBFS {bbfs}{checked}\n\n"
+            "Salam JP & tetap UPS! 🔥\n\n"
             "Jangan lupa support lewat LINK 💛"
         )
         await bot.send_message(chat_id=chat_id, text=body, reply_to_message_id=target_id)
@@ -167,8 +167,10 @@ async def handle_sydney_commands(bot, state, sha, chat_id):
         save_state(state, sha)
         state, sha = read_state()
 
-    save_state(state, sha)
-    return read_state()
+    if updates:
+        save_state(state, sha)
+        return read_state()
+    return state, sha
 
 
 def menu_keyboard(state):
