@@ -139,7 +139,7 @@ async def handle_sydney_commands(bot, state, sha, chat_id):
         if str(message.from_user.id) != admin_id or message.chat.type != "private":
             continue
 
-        match = re.fullmatch(r"/sydney(?:@\\w+)?\\s+(\\d{4})\\s+(\\d{5})", message.text.strip(), re.I)
+        match = re.fullmatch(r"/sydney(?:@\w+)?\s+(\d{4})\s+(\d{5})", message.text.strip(), re.I)
         if not match:
             if message.text.lower().startswith("/sydney"):
                 await message.reply_text("Format: /sydney 0196 01649")
@@ -160,9 +160,9 @@ async def handle_sydney_commands(bot, state, sha, chat_id):
 
         mark = " (✅)" if set(result).issubset(set(digits)) else ""
         body = (
-            f"SYDNEY SAH : {result}\\n"
-            f"{digits}{mark}\\n\\n"
-            "Salam JP & tetap UPS! 🔥\\n\\n"
+            f"SYDNEY SAH : {result}\n"
+            f"{digits}{mark}\n\n"
+            "Salam JP & tetap UPS! 🔥\n\n"
             "Jangan lupa support lewat LINK 💛"
         )
         await bot.send_message(chat_id=chat_id, text=body, reply_to_message_id=message_id)
