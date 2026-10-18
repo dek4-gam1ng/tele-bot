@@ -47,28 +47,14 @@ CATCHUP_MINUTES = 15
 
 
 def make_message(name: str, now: datetime) -> str:
-    # Digits may repeat within each set; at most two distinct digits shared.
     rng = secrets.SystemRandom()
-    bbfs = [rng.randrange(10) for _ in range(5)]
-    while True:
-        poltar = [rng.randrange(10) for _ in range(5)]
-        if len(set(bbfs) & set(poltar)) <= 2 and bbfs != poltar:
-            break
-
-    def pick(source, count):
-        return ''.join(map(str, source[:count]))
+    digits = ''.join(str(rng.randrange(10)) for _ in range(5))
 
     return (
         f"🔮 PREDIKSI {name} ({now:%d/%m})\n"
         "━━━━━━━━━━━━━━━━━━\n"
-        "⚡ BBFS x POLTAR\n"
-        f"{pick(bbfs, 5)} x {pick(poltar, 5)}\n\n"
-        "🎯 4D\n"
-        f"{pick(bbfs, 4)} | {pick(poltar, 4)}\n\n"
-        "🎯 3D\n"
-        f"{pick(bbfs[2:], 3)} | {pick(poltar[2:], 3)}\n\n"
-        "🎯 2D\n"
-        f"{pick(bbfs[3:], 2)} | {pick(poltar[3:], 2)}\n\n"
+        f"⚡ {digits}\n"
+        f"🎯 {digits[:4]}  |  {digits[2:]}  |  {digits[3:]}\n\n"
         "━━━━━━━━━━━━━━━━━━\n"
         + (f"💤 OFF HARI INI: {' • '.join(off_today(now.weekday()))}\n━━━━━━━━━━━━━━━━━━\n" if off_today(now.weekday()) else "")
         + "🤞 SALAM JP PAUS & TETAP UPS!\n"
