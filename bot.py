@@ -63,7 +63,7 @@ def make_message(name: str, now: datetime, vip_url: str) -> str:
         + (f"💤 OFF HARI INI: {' • '.join(off_today(now.weekday()))}\n━━━━━━━━━━━━━━━━━━\n" if off_today(now.weekday()) else "")
         + "🤞 SALAM JP PAUS & TETAP UPS!\n"
         "━━━━━━━━━━━━━━━━━━\n"
-        "🌐 AKUN VIP · FACEBOOK · 𝕏\n"
+        "𝑽𝑰𝑷 · ⓕ FB · 𝕏\n"
         f"🔗 {vip_url}"
     )
 
