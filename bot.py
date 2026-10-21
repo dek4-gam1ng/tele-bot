@@ -54,18 +54,19 @@ def make_message(name: str, now: datetime, vip_url: str) -> str:
     rng = secrets.SystemRandom()
     digits = ''.join(str(rng.randrange(10)) for _ in range(5))
 
-    return (
-        f"🔮 PREDIKSI {name} ({now:%d/%m})\n"
-        "━━━━━━━━━━━━━━━━━━\n"
-        f"⚡ {digits}\n\n"
-        f"🎯 {digits[:4]} | {digits[2:]} | {digits[3:]}\n"
-        "━━━━━━━━━━━━━━━━━━\n"
-        + (f"💤 OFF HARI INI: {' • '.join(off_today(now.weekday()))}\n━━━━━━━━━━━━━━━━━━\n" if off_today(now.weekday()) else "")
-        + "🤞 SALAM JP PAUS & TETAP UPS!\n"
-        "━━━━━━━━━━━━━━━━━━\n"
-        "𝑽𝑰𝑷 · ⓕ FB · 𝕏\n"
-        f"🔗 {vip_url}"
-    )
+    parts = [
+        f"🔮 {name} · {now:%d/%m}",
+        f"⚡\n{digits}",
+        f"🎯\n{digits[:4]} · {digits[2:]} · {digits[3:]}",
+        "──────────",
+    ]
+    if off_today(now.weekday()):
+        parts.append(f"💤 OFF HARI INI: {' • '.join(off_today(now.weekday()))}")
+    parts.extend([
+        "🤞 SALAM JP PAUS & TETAP UPS!",
+        f"𝑽𝑰𝑷 · ⓕ FB · 𝕏\n🔗 {vip_url}",
+    ])
+    return "\n\n".join(parts)
 
 
 def github_state(method="GET", payload=None):
