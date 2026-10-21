@@ -9,7 +9,7 @@ import urllib.request
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup, LinkPreviewOptions
 
 WIB = ZoneInfo("Asia/Jakarta")
 # Local WIB hours and minutes, in posting order.
@@ -165,7 +165,7 @@ async def main():
                 print(f"Already sent {key}; skipping.")
                 continue
             vip_index = int(state.get("META:VIP_NEXT", 0)) % len(VIP_LINKS)
-            sent = await bot.send_message(chat_id=chat_id, text=make_message(name, now, VIP_LINKS[vip_index]), reply_markup=menu_keyboard(state))
+            sent = await bot.send_message(chat_id=chat_id, text=make_message(name, now, VIP_LINKS[vip_index]), reply_markup=menu_keyboard(state), link_preview_options=LinkPreviewOptions(is_disabled=True))
             state[key] = {"sent_at": datetime.now(WIB).isoformat(), "message_id": sent.message_id}
             state["META:VIP_NEXT"] = (vip_index + 1) % len(VIP_LINKS)
             save_state(state, sha)
