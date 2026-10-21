@@ -64,7 +64,7 @@ def make_message(name: str, now: datetime, vip_url: str) -> str:
         parts.append(f"💤 OFF HARI INI: {' • '.join(off_today(now.weekday()))}")
     parts.extend([
         "🤞 SALAM JP PAUS & TETAP UPS!",
-        f"𝑽𝑰𝑷 · ⓕ FB · 𝕏\n🔗 {vip_url}",
+        f"VIP · FB · X\n🔗 {vip_url}",
     ])
     return "\n\n".join(parts)
 
