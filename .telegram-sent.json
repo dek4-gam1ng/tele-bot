@@ -2,7 +2,7 @@
   "META:LIST_ID": 42,
   "META:PROGRESS_ID": 43,
   "META:UPDATE_OFFSET": 801758937,
-  "META:VIP_NEXT": 0,
+  "META:VIP_NEXT": 1,
   "2026-10-19:AUSTRALIA": {
     "sent_at": "2026-10-19T05:45:11.022258+07:00",
     "message_id": 108
@@ -814,5 +814,9 @@
   "2026-10-26:TTM 22": {
     "sent_at": "2026-10-26T21:15:13.078706+07:00",
     "message_id": 311
+  },
+  "2026-10-26:HONGKONG": {
+    "sent_at": "2026-10-26T21:50:13.324305+07:00",
+    "message_id": 312
   }
 }
