@@ -2,7 +2,7 @@
   "META:LIST_ID": 42,
   "META:PROGRESS_ID": 43,
   "META:UPDATE_OFFSET": 801758937,
-  "META:VIP_NEXT": 0,
+  "META:VIP_NEXT": 1,
   "2026-10-20:AUSTRALIA": {
     "sent_at": "2026-10-20T05:45:11.355616+07:00",
     "message_id": 133
@@ -802,5 +802,9 @@
   "2026-10-27:TTM 19": {
     "sent_at": "2026-10-27T18:15:15.719465+07:00",
     "message_id": 333
+  },
+  "2026-10-27:PCSO": {
+    "sent_at": "2026-10-27T19:15:11.561585+07:00",
+    "message_id": 334
   }
 }
