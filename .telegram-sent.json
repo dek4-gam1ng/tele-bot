@@ -2,7 +2,7 @@
   "META:LIST_ID": 42,
   "META:PROGRESS_ID": 43,
   "META:UPDATE_OFFSET": 801758937,
-  "META:VIP_NEXT": 1,
+  "META:VIP_NEXT": 0,
   "2026-10-24:AUSTRALIA": {
     "sent_at": "2026-10-24T05:45:12.417862+07:00",
     "message_id": 237
@@ -802,5 +802,9 @@
   "2026-10-31:MAGNUM4D": {
     "sent_at": "2026-10-31T17:15:11.448272+07:00",
     "message_id": 436
+  },
+  "2026-10-31:MEXICO": {
+    "sent_at": "2026-10-31T17:40:15.652866+07:00",
+    "message_id": 437
   }
 }
