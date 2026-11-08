@@ -114,7 +114,8 @@ def save_state(state, sha):
 
 
 def is_off(name, day):
-    return ((name == "TEXAS" and day == 0) or
+    return ((name == "PCSO" and day == 6) or
+            (name == "TEXAS" and day == 0) or
             (name == "SGP" and day in (1, 4)) or
             (name == "MAGNUM4D" and day not in (2, 5, 6)))
 
