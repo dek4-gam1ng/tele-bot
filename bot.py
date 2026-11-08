@@ -46,7 +46,7 @@ STATE_PATH = ".telegram-sent.json"
 CATCHUP_MINUTES = 15
 VIP_LINKS = (
     "https://mez.ink/theprediksijitu",
-    "https://heylink.me/theprediksijitu",
+    "https://heylink.me/landaktotorute/",
 )
 
 
