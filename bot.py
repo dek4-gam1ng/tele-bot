@@ -18,9 +18,9 @@ TIMES = [
     (7, 45, "LAOS"),
     (8, 0, "SOUTHKOREA"),
     (8, 30, "NORTHKOREA"),
-    (8, 35, "NEW YORK"),
-    (9, 10, "KENTUCKY EVENING"),
-    (9, 20, "TEXAS"),
+    (9, 20, "TEXAS NIGHT"),
+    (9, 35, "NEW YORK EVENING"),
+    (10, 10, "KENTUCKY EVENING"),
     (10, 45, "CAMBODIA"),
     (11, 15, "BRUNEI"),
     (11, 20, "BULLSEYE"),
@@ -44,6 +44,7 @@ TIMES = [
 ]
 STATE_PATH = ".telegram-sent.json"
 CATCHUP_MINUTES = 15
+NAME_ALIASES = {"NEW YORK": "NEW YORK EVENING", "TEXAS": "TEXAS NIGHT"}
 VIP_LINKS = (
     "https://mez.ink/theprediksijitu",
     "https://heylink.me/landaktotorute/",
@@ -95,7 +96,12 @@ def read_state():
     if result is None:
         return {}, None
     contents = base64.b64decode(result["content"]).decode()
-    return json.loads(contents), result["sha"]
+    state = json.loads(contents)
+    for key in list(state):
+        date, separator, name = key.partition(":")
+        if separator and name in NAME_ALIASES:
+            state.setdefault(f"{date}:{NAME_ALIASES[name]}", state[key])
+    return state, result["sha"]
 
 
 def save_state(state, sha):
@@ -115,7 +121,7 @@ def save_state(state, sha):
 
 def is_off(name, day):
     return ((name == "PCSO" and day == 6) or
-            (name == "TEXAS" and day == 0) or
+            (name == "TEXAS NIGHT" and day == 0) or
             (name == "SGP" and day in (1, 4)) or
             (name == "MAGNUM4D" and day not in (2, 5, 6)))
 
@@ -133,6 +139,7 @@ def menu_keyboard(state):
 async def main():
     now = datetime.now(WIB)
     manual = os.getenv("MANUAL_NAME", "").strip().upper()
+    manual = NAME_ALIASES.get(manual, manual)
     if manual == "AUTO":
         manual = ""
     names = {name for _, _, name in TIMES}
