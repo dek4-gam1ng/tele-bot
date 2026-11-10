@@ -2,7 +2,7 @@
   "META:LIST_ID": 42,
   "META:PROGRESS_ID": 43,
   "META:UPDATE_OFFSET": 801758937,
-  "META:VIP_NEXT": 1,
+  "META:VIP_NEXT": 0,
   "2026-11-03:AUSTRALIA": {
     "sent_at": "2026-11-03T05:45:11.418313+07:00",
     "message_id": 500
@@ -766,5 +766,9 @@
   "2026-11-10:BRUNEI": {
     "sent_at": "2026-11-10T11:15:11.928642+07:00",
     "message_id": 701
+  },
+  "2026-11-10:BULLSEYE": {
+    "sent_at": "2026-11-10T11:20:13.327118+07:00",
+    "message_id": 702
   }
 }
