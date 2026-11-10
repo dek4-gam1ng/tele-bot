@@ -2,7 +2,7 @@
   "META:LIST_ID": 42,
   "META:PROGRESS_ID": 43,
   "META:UPDATE_OFFSET": 801758937,
-  "META:VIP_NEXT": 0,
+  "META:VIP_NEXT": 1,
   "2026-11-03:AUSTRALIA": {
     "sent_at": "2026-11-03T05:45:11.418313+07:00",
     "message_id": 500
@@ -886,5 +886,9 @@
   "2026-11-10:TTM 24": {
     "sent_at": "2026-11-10T23:15:14.659177+07:00",
     "message_id": 720
+  },
+  "2026-11-10:KENTUCKY DAY": {
+    "sent_at": "2026-11-10T23:30:12.000008+07:00",
+    "message_id": 721
   }
 }
