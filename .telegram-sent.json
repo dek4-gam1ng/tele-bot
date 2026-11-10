@@ -2,7 +2,7 @@
   "META:LIST_ID": 42,
   "META:PROGRESS_ID": 43,
   "META:UPDATE_OFFSET": 801758937,
-  "META:VIP_NEXT": 0,
+  "META:VIP_NEXT": 1,
   "2026-11-03:AUSTRALIA": {
     "sent_at": "2026-11-03T05:45:11.418313+07:00",
     "message_id": 500
@@ -802,5 +802,69 @@
   "2026-11-10:TTM 19": {
     "sent_at": "2026-11-10T18:15:30.953150+07:00",
     "message_id": 712
+  },
+  "2026-11-03:NEW YORK EVENING": {
+    "sent_at": "2026-11-03T08:35:12.466439+07:00",
+    "message_id": 504
+  },
+  "2026-11-03:TEXAS NIGHT": {
+    "sent_at": "2026-11-03T09:20:16.343567+07:00",
+    "message_id": 506
+  },
+  "2026-11-04:NEW YORK EVENING": {
+    "sent_at": "2026-11-04T08:35:11.039756+07:00",
+    "message_id": 530
+  },
+  "2026-11-04:TEXAS NIGHT": {
+    "sent_at": "2026-11-04T09:20:11.344776+07:00",
+    "message_id": 532
+  },
+  "2026-11-05:NEW YORK EVENING": {
+    "sent_at": "2026-11-05T08:35:10.867210+07:00",
+    "message_id": 558
+  },
+  "2026-11-05:TEXAS NIGHT": {
+    "sent_at": "2026-11-05T09:20:14.594796+07:00",
+    "message_id": 560
+  },
+  "2026-11-06:NEW YORK EVENING": {
+    "sent_at": "2026-11-06T08:35:11.194973+07:00",
+    "message_id": 586
+  },
+  "2026-11-06:TEXAS NIGHT": {
+    "sent_at": "2026-11-06T09:20:14.852726+07:00",
+    "message_id": 588
+  },
+  "2026-11-07:NEW YORK EVENING": {
+    "sent_at": "2026-11-07T08:35:15.542337+07:00",
+    "message_id": 612
+  },
+  "2026-11-07:TEXAS NIGHT": {
+    "sent_at": "2026-11-07T09:20:13.656280+07:00",
+    "message_id": 614
+  },
+  "2026-11-08:NEW YORK EVENING": {
+    "sent_at": "2026-11-08T08:35:10.102723+07:00",
+    "message_id": 639
+  },
+  "2026-11-08:TEXAS NIGHT": {
+    "sent_at": "2026-11-08T09:20:15.607863+07:00",
+    "message_id": 641
+  },
+  "2026-11-09:NEW YORK EVENING": {
+    "sent_at": "2026-11-09T08:35:09.421073+07:00",
+    "message_id": 669
+  },
+  "2026-11-10:NEW YORK EVENING": {
+    "sent_at": "2026-11-10T08:35:12.224356+07:00",
+    "message_id": 697
+  },
+  "2026-11-10:TEXAS NIGHT": {
+    "sent_at": "2026-11-10T09:20:12.481841+07:00",
+    "message_id": 699
+  },
+  "2026-11-10:PCSO": {
+    "sent_at": "2026-11-10T19:15:10.322017+07:00",
+    "message_id": 713
   }
 }
