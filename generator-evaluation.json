@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "generator": {
+    "version": "pooled-frequency-v1",
+    "changed_on": "2026-11-13",
+    "timezone": "Asia/Jakarta",
+    "training_results": 90,
+    "source_commit": "70e8243a954a0fd3cb737fa1f47fb7d1247de436",
+    "scope": "all_markets"
+  },
+  "evaluation_start": {
+    "date": "2026-11-13",
+    "user_marker": "11/13 * KH",
+    "market": "HONGKONG",
+    "note": "Evaluation starts with the manual HK prediction below, not earlier predictions on this date."
+  },
+  "predictions": [
+    {
+      "date": "2026-11-13",
+      "market": "HONGKONG",
+      "source": "manual_chat",
+      "digits": "00684",
+      "four_digit": "0068",
+      "three_digit": "684",
+      "two_digit": "84",
+      "telegram_sent": false,
+      "actual_result": null,
+      "matches": null
+    }
+  ],
+  "evaluation_rules": {
+    "match_definition": null,
+    "note": "Record actual results and agree match types before calculating accuracy. Unresolved outcomes are not losses; count predictions, not individual digit slices, in the prediction denominator."
+  }
+}
