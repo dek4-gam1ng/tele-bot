@@ -1,6 +1,7 @@
 """Send scheduled Telegram messages with catch-up and persistent deduplication."""
 import asyncio
 import base64
+from collections import Counter
 import json
 import os
 import secrets
@@ -51,9 +52,36 @@ VIP_LINKS = (
 )
 
 
-def make_message(name: str, now: datetime, vip_url: str) -> str:
-    rng = secrets.SystemRandom()
-    digits = ''.join(str(rng.randrange(10)) for _ in range(5))
+# Shared historical sample supplied by the user; dates and markets are unknown.
+# Treat each result as a string to preserve leading zeros. No recency weighting.
+HISTORICAL_RESULTS = """
+7792 6948 9854 1184 8277 4153 5872 1680 1510 3834 4580 0509 7256 7231 4830
+7174 4597 9532 5480 1269 3581 5096 8280 3778 8385 8262 5379 6297 7345 3967
+5805 6754 2615 3534 6469 8270 6196 3268 9181 7176 6962 3686 2164 6987 5232
+3159 5872 6807 2771 0823 9540 4659 9608 2036 0860 3725 9059 5065 0379 4332
+9298 0040 1401 0076 6140 9348 3462 4146 5162 0752 0096 0841 4207 2055 8129
+7085 4795 4953 6492 6038 9598 6190 9925 8710 3732 0507 0863 9160 0747 9487
+""".split()
+MODEL_VERSION = "pooled-frequency-v1"
+DIGITS = "0123456789"
+# Add-one smoothing keeps every digit eligible; this is not an accuracy claim.
+DIGIT_COUNTS = Counter("".join(HISTORICAL_RESULTS))
+DIGIT_WEIGHTS = tuple(DIGIT_COUNTS[digit] + 1 for digit in DIGITS)
+
+
+def generate_digits(rng=None) -> str:
+    """Draw five digits with replacement using the same pooled weights for all markets."""
+    if not HISTORICAL_RESULTS or any(
+        len(result) != 4 or any(digit not in DIGITS for digit in result)
+        for result in HISTORICAL_RESULTS
+    ):
+        raise ValueError("Historical results must contain four ASCII digits each")
+    rng = rng if rng is not None else secrets.SystemRandom()
+    return "".join(rng.choices(DIGITS, weights=DIGIT_WEIGHTS, k=5))
+
+
+def make_message(name: str, now: datetime, vip_url: str, digits: str = None) -> str:
+    digits = generate_digits() if digits is None else digits
 
     parts = [
         f"🔮 {name} · {now:%d/%m}",
@@ -174,8 +202,15 @@ async def main():
                 print(f"Already sent {key}; skipping.")
                 continue
             vip_index = int(state.get("META:VIP_NEXT", 0)) % len(VIP_LINKS)
-            sent = await bot.send_message(chat_id=chat_id, text=make_message(name, now, VIP_LINKS[vip_index]), reply_markup=menu_keyboard(state), link_preview_options=LinkPreviewOptions(is_disabled=True))
-            state[key] = {"sent_at": datetime.now(WIB).isoformat(), "message_id": sent.message_id}
+            digits = generate_digits()
+            sent = await bot.send_message(chat_id=chat_id, text=make_message(name, now, VIP_LINKS[vip_index], digits), reply_markup=menu_keyboard(state), link_preview_options=LinkPreviewOptions(is_disabled=True))
+            state[key] = {
+                "sent_at": datetime.now(WIB).isoformat(),
+                "message_id": sent.message_id,
+                "digits": digits,
+                "model": MODEL_VERSION,
+                "sample_size": len(HISTORICAL_RESULTS),
+            }
             state["META:VIP_NEXT"] = (vip_index + 1) % len(VIP_LINKS)
             save_state(state, sha)
             # Reload the new SHA before recording the next delivery.
