@@ -10,9 +10,12 @@
   },
   "evaluation_start": {
     "date": "2026-11-13",
-    "user_marker": "11/13 * KH",
-    "market": "HONGKONG",
-    "note": "Evaluation starts with the manual HK prediction below, not earlier predictions on this date."
+    "timezone": "Asia/Jakarta",
+    "market": "TTM 22",
+    "scheduled_time": "21:15",
+    "inclusive": true,
+    "user_marker": "13 November 2026 start dari TTM 22",
+    "note": "User-corrected evaluation boundary: include TTM 22 on this date and subsequent predictions across all markets. The manual HK entry is retained as a prediction, not the starting point. This marker alone does not verify delivery."
   },
   "predictions": [
     {
