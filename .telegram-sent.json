@@ -972,5 +972,12 @@
     "digits": "05200",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-15:TTM 19": {
+    "sent_at": "2026-11-15T18:15:21.298174+07:00",
+    "message_id": 857,
+    "digits": "01627",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
