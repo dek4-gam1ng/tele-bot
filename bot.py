@@ -46,6 +46,7 @@ TIMES = [
 STATE_PATH = ".telegram-sent.json"
 CATCHUP_MINUTES = 15
 NAME_ALIASES = {"NEW YORK": "NEW YORK EVENING", "TEXAS": "TEXAS NIGHT"}
+VIP_MARKETS = frozenset({"CAMBODIA", "SYDNEY", "SGP", "TAIWAN", "HONGKONG"})
 VIP_LINKS = (
     "https://mez.ink/theprediksijitu",
     "https://heylink.me/landaktotorute/",
@@ -91,10 +92,9 @@ def make_message(name: str, now: datetime, vip_url: str, digits: str = None) -> 
     ]
     if off_today(now.weekday()):
         parts.append(f"💤 OFF HARI INI: {' • '.join(off_today(now.weekday()))}")
-    parts.extend([
-        "🤞 SALAM JP PAUS & TETAP UPS!",
-        f"VIP · FB · X\n🔗 {vip_url}",
-    ])
+    parts.append("🤞 SALAM JP PAUS & TETAP UPS!")
+    if name in VIP_MARKETS:
+        parts.append(f"VIP · FB · X\n🔗 {vip_url}")
     return "\n\n".join(parts)
 
 
@@ -211,7 +211,8 @@ async def main():
                 "model": MODEL_VERSION,
                 "sample_size": len(HISTORICAL_RESULTS),
             }
-            state["META:VIP_NEXT"] = (vip_index + 1) % len(VIP_LINKS)
+            if name in VIP_MARKETS:
+                state["META:VIP_NEXT"] = (vip_index + 1) % len(VIP_LINKS)
             save_state(state, sha)
             # Reload the new SHA before recording the next delivery.
             state, sha = read_state()
