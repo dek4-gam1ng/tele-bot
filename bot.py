@@ -48,8 +48,8 @@ CATCHUP_MINUTES = 15
 NAME_ALIASES = {"NEW YORK": "NEW YORK EVENING", "TEXAS": "TEXAS NIGHT"}
 VIP_MARKETS = frozenset({"CAMBODIA", "SYDNEY", "SGP", "TAIWAN", "HONGKONG"})
 VIP_LINKS = (
-    "https://mez.ink/theprediksijitu",
-    "https://heylink.me/landaktotorute/",
+    "https://mez.ink/jituexpress",
+    "https://heylink.me/landak-raya-halal",
 )
 
 
