@@ -982,5 +982,12 @@
     "digits": "36172",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-16:NEWZEALAND": {
+    "sent_at": "2026-11-16T13:45:23.670997+07:00",
+    "message_id": 878,
+    "digits": "88052",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
