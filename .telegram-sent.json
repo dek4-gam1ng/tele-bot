@@ -919,5 +919,12 @@
     "digits": "06762",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-16:SOUTHKOREA": {
+    "sent_at": "2026-11-16T08:00:13.272864+07:00",
+    "message_id": 869,
+    "digits": "55549",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
