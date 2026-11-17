@@ -983,5 +983,12 @@
     "digits": "13092",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-17:LAOS": {
+    "sent_at": "2026-11-17T07:45:11.296433+07:00",
+    "message_id": 894,
+    "digits": "42841",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
