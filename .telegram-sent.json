@@ -1064,5 +1064,12 @@
     "digits": "09970",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-18:NORTHKOREA": {
+    "sent_at": "2026-11-18T08:30:11.006005+07:00",
+    "message_id": 921,
+    "digits": "38517",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
