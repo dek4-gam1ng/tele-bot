@@ -1106,5 +1106,12 @@
     "digits": "30800",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-18:BULLSEYE": {
+    "sent_at": "2026-11-18T11:20:15.893113+07:00",
+    "message_id": 927,
+    "digits": "56421",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
