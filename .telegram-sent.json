@@ -1085,5 +1085,12 @@
     "digits": "03537",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-18:KENTUCKY EVENING": {
+    "sent_at": "2026-11-18T10:10:09.162420+07:00",
+    "message_id": 924,
+    "digits": "63708",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
