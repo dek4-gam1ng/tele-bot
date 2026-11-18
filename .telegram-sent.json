@@ -1148,5 +1148,12 @@
     "digits": "66987",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-18:JAPAN": {
+    "sent_at": "2026-11-18T16:15:17.127050+07:00",
+    "message_id": 933,
+    "digits": "49168",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
