@@ -1299,5 +1299,12 @@
     "digits": "63903",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-19:KENTUCKY DAY": {
+    "sent_at": "2026-11-19T23:30:11.219393+07:00",
+    "message_id": 970,
+    "digits": "60974",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
