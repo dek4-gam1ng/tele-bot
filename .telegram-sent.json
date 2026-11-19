@@ -1180,5 +1180,12 @@
     "digits": "22658",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-19:BRUNEI": {
+    "sent_at": "2026-11-19T11:15:16.013853+07:00",
+    "message_id": 953,
+    "digits": "33530",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
