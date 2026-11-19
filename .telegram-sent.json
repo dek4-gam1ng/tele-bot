@@ -1243,5 +1243,12 @@
     "digits": "68130",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-19:MEXICO": {
+    "sent_at": "2026-11-19T17:40:14.255784+07:00",
+    "message_id": 962,
+    "digits": "84159",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
