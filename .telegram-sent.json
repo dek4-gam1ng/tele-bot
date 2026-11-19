@@ -1257,5 +1257,12 @@
     "digits": "54948",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-19:PCSO": {
+    "sent_at": "2026-11-19T19:15:11.336567+07:00",
+    "message_id": 964,
+    "digits": "41835",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
