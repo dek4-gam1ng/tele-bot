@@ -3,114 +3,6 @@
   "META:PROGRESS_ID": 43,
   "META:UPDATE_OFFSET": 801758937,
   "META:VIP_NEXT": 1,
-  "2026-11-13:AUSTRALIA": {
-    "sent_at": "2026-11-13T05:45:11.336549+07:00",
-    "message_id": 776
-  },
-  "2026-11-13:LAOS": {
-    "sent_at": "2026-11-13T07:45:15.239360+07:00",
-    "message_id": 777
-  },
-  "2026-11-13:SOUTHKOREA": {
-    "sent_at": "2026-11-13T08:00:17.022357+07:00",
-    "message_id": 778
-  },
-  "2026-11-13:NORTHKOREA": {
-    "sent_at": "2026-11-13T08:30:12.234358+07:00",
-    "message_id": 779
-  },
-  "2026-11-13:TEXAS NIGHT": {
-    "sent_at": "2026-11-13T09:20:11.275740+07:00",
-    "message_id": 780
-  },
-  "2026-11-13:NEW YORK EVENING": {
-    "sent_at": "2026-11-13T09:35:11.019149+07:00",
-    "message_id": 781
-  },
-  "2026-11-13:KENTUCKY EVENING": {
-    "sent_at": "2026-11-13T10:10:12.335276+07:00",
-    "message_id": 782
-  },
-  "2026-11-13:CAMBODIA": {
-    "sent_at": "2026-11-13T10:45:12.952205+07:00",
-    "message_id": 783
-  },
-  "2026-11-13:BRUNEI": {
-    "sent_at": "2026-11-13T11:15:11.357568+07:00",
-    "message_id": 784
-  },
-  "2026-11-13:BULLSEYE": {
-    "sent_at": "2026-11-13T11:20:15.975780+07:00",
-    "message_id": 785
-  },
-  "2026-11-13:TTM 13": {
-    "sent_at": "2026-11-13T12:15:14.875506+07:00",
-    "message_id": 786
-  },
-  "2026-11-13:SYDNEY": {
-    "sent_at": "2026-11-13T12:45:15.079739+07:00",
-    "message_id": 787
-  },
-  "2026-11-13:NEWZEALAND": {
-    "sent_at": "2026-11-13T13:45:12.214548+07:00",
-    "message_id": 788
-  },
-  "2026-11-13:CHINA": {
-    "sent_at": "2026-11-13T14:30:25.251726+07:00",
-    "message_id": 789
-  },
-  "2026-11-13:TTM 16": {
-    "sent_at": "2026-11-13T15:15:12.643723+07:00",
-    "message_id": 793
-  },
-  "2026-11-13:JAPAN": {
-    "sent_at": "2026-11-13T16:15:12.701926+07:00",
-    "message_id": 794
-  },
-  "2026-11-13:MEXICO": {
-    "sent_at": "2026-11-13T17:40:12.171153+07:00",
-    "message_id": 795
-  },
-  "2026-11-13:TTM 19": {
-    "sent_at": "2026-11-13T18:15:14.304729+07:00",
-    "message_id": 796
-  },
-  "2026-11-13:PCSO": {
-    "sent_at": "2026-11-13T19:15:26.328577+07:00",
-    "message_id": 797
-  },
-  "2026-11-13:TAIWAN": {
-    "sent_at": "2026-11-13T19:45:13.514711+07:00",
-    "message_id": 798
-  },
-  "2026-11-13:TTM 22": {
-    "sent_at": "2026-11-13T21:15:23.982306+07:00",
-    "message_id": 801,
-    "digits": "49286",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-13:TTM 23": {
-    "sent_at": "2026-11-13T22:15:12.666680+07:00",
-    "message_id": 803,
-    "digits": "80585",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-13:TTM 24": {
-    "sent_at": "2026-11-13T23:15:11.744184+07:00",
-    "message_id": 804,
-    "digits": "39709",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-13:KENTUCKY DAY": {
-    "sent_at": "2026-11-13T23:30:13.973669+07:00",
-    "message_id": 805,
-    "digits": "30348",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
   "2026-11-14:AUSTRALIA": {
     "sent_at": "2026-11-14T05:45:11.685744+07:00",
     "message_id": 807,
@@ -1354,6 +1246,13 @@
     "sent_at": "2026-11-20T22:15:13.679592+07:00",
     "message_id": 992,
     "digits": "01281",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
+  },
+  "2026-11-21:AUSTRALIA": {
+    "sent_at": "2026-11-21T05:45:12.985944+07:00",
+    "message_id": 993,
+    "digits": "25654",
     "model": "pooled-frequency-v1",
     "sample_size": 90
   }
