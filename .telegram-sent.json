@@ -2,7 +2,7 @@
   "META:LIST_ID": 42,
   "META:PROGRESS_ID": 43,
   "META:UPDATE_OFFSET": 801758937,
-  "META:VIP_NEXT": 0,
+  "META:VIP_NEXT": 1,
   "2026-11-13:AUSTRALIA": {
     "sent_at": "2026-11-13T05:45:11.336549+07:00",
     "message_id": 776
@@ -1340,6 +1340,13 @@
     "sent_at": "2026-11-20T19:45:21.618682+07:00",
     "message_id": 990,
     "digits": "65649",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
+  },
+  "2026-11-20:HONGKONG": {
+    "sent_at": "2026-11-20T19:50:10.836561+07:00",
+    "message_id": 991,
+    "digits": "72990",
     "model": "pooled-frequency-v1",
     "sample_size": 90
   }
