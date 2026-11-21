@@ -1339,5 +1339,12 @@
     "digits": "54709",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-21:CHINA": {
+    "sent_at": "2026-11-21T14:30:10.196549+07:00",
+    "message_id": 1006,
+    "digits": "65698",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
