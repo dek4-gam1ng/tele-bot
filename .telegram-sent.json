@@ -1276,5 +1276,12 @@
     "digits": "37756",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-22:TEXAS NIGHT": {
+    "sent_at": "2026-11-22T09:20:13.169008+07:00",
+    "message_id": 1026,
+    "digits": "13201",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
