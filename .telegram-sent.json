@@ -1269,5 +1269,12 @@
     "digits": "57950",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-22:NORTHKOREA": {
+    "sent_at": "2026-11-22T08:30:11.796759+07:00",
+    "message_id": 1025,
+    "digits": "37756",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
