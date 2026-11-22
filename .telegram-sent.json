@@ -3,188 +3,6 @@
   "META:PROGRESS_ID": 43,
   "META:UPDATE_OFFSET": 801758937,
   "META:VIP_NEXT": 1,
-  "2026-11-15:AUSTRALIA": {
-    "sent_at": "2026-11-15T05:45:20.541951+07:00",
-    "message_id": 838,
-    "digits": "38597",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:LAOS": {
-    "sent_at": "2026-11-15T07:45:12.858575+07:00",
-    "message_id": 839,
-    "digits": "82315",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:SOUTHKOREA": {
-    "sent_at": "2026-11-15T08:00:11.796493+07:00",
-    "message_id": 840,
-    "digits": "42094",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:NORTHKOREA": {
-    "sent_at": "2026-11-15T08:30:11.971579+07:00",
-    "message_id": 841,
-    "digits": "79843",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:TEXAS NIGHT": {
-    "sent_at": "2026-11-15T09:20:11.058945+07:00",
-    "message_id": 842,
-    "digits": "96989",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:NEW YORK EVENING": {
-    "sent_at": "2026-11-15T09:35:11.988128+07:00",
-    "message_id": 843,
-    "digits": "65105",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:KENTUCKY EVENING": {
-    "sent_at": "2026-11-15T10:10:10.528538+07:00",
-    "message_id": 844,
-    "digits": "05093",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:CAMBODIA": {
-    "sent_at": "2026-11-15T10:45:10.948772+07:00",
-    "message_id": 845,
-    "digits": "12276",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:BRUNEI": {
-    "sent_at": "2026-11-15T11:15:11.481508+07:00",
-    "message_id": 846,
-    "digits": "08221",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:BULLSEYE": {
-    "sent_at": "2026-11-15T11:20:13.595883+07:00",
-    "message_id": 847,
-    "digits": "58244",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:TTM 13": {
-    "sent_at": "2026-11-15T12:15:09.999615+07:00",
-    "message_id": 848,
-    "digits": "06418",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:SYDNEY": {
-    "sent_at": "2026-11-15T12:45:18.740037+07:00",
-    "message_id": 849,
-    "digits": "49822",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:NEWZEALAND": {
-    "sent_at": "2026-11-15T13:45:15.807327+07:00",
-    "message_id": 850,
-    "digits": "76009",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:CHINA": {
-    "sent_at": "2026-11-15T14:30:11.987120+07:00",
-    "message_id": 851,
-    "digits": "31482",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:TTM 16": {
-    "sent_at": "2026-11-15T15:15:12.032175+07:00",
-    "message_id": 852,
-    "digits": "47672",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:JAPAN": {
-    "sent_at": "2026-11-15T16:15:10.028409+07:00",
-    "message_id": 853,
-    "digits": "28785",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:SGP": {
-    "sent_at": "2026-11-15T16:45:13.362590+07:00",
-    "message_id": 854,
-    "digits": "04155",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:MAGNUM4D": {
-    "sent_at": "2026-11-15T17:15:12.712184+07:00",
-    "message_id": 855,
-    "digits": "23932",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:MEXICO": {
-    "sent_at": "2026-11-15T17:40:10.986263+07:00",
-    "message_id": 856,
-    "digits": "05200",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:TTM 19": {
-    "sent_at": "2026-11-15T18:15:21.298174+07:00",
-    "message_id": 857,
-    "digits": "01627",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:TAIWAN": {
-    "sent_at": "2026-11-15T19:45:12.369747+07:00",
-    "message_id": 858,
-    "digits": "30947",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:HONGKONG": {
-    "sent_at": "2026-11-15T19:50:10.885606+07:00",
-    "message_id": 859,
-    "digits": "54553",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:TTM 22": {
-    "sent_at": "2026-11-15T21:15:16.130440+07:00",
-    "message_id": 862,
-    "digits": "52165",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:TTM 23": {
-    "sent_at": "2026-11-15T22:15:16.601311+07:00",
-    "message_id": 864,
-    "digits": "56286",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:TTM 24": {
-    "sent_at": "2026-11-15T23:15:12.054105+07:00",
-    "message_id": 865,
-    "digits": "04025",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
-  "2026-11-15:KENTUCKY DAY": {
-    "sent_at": "2026-11-15T23:30:11.795918+07:00",
-    "message_id": 866,
-    "digits": "76597",
-    "model": "pooled-frequency-v1",
-    "sample_size": 90
-  },
   "2026-11-16:AUSTRALIA": {
     "sent_at": "2026-11-16T05:45:12.761066+07:00",
     "message_id": 867,
@@ -1428,6 +1246,13 @@
     "sent_at": "2026-11-22T23:30:13.882928+07:00",
     "message_id": 1047,
     "digits": "57452",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
+  },
+  "2026-11-23:AUSTRALIA": {
+    "sent_at": "2026-11-23T05:45:12.417934+07:00",
+    "message_id": 1048,
+    "digits": "20080",
     "model": "pooled-frequency-v1",
     "sample_size": 90
   }
