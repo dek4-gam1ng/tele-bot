@@ -15,7 +15,6 @@ on:
           - 'BULLSEYE'
           - 'TTM 13'
           - 'SYDNEY'
-          - 'NEWZEALAND'
           - 'CHINA'
           - 'TTM 16'
           - 'JAPAN'

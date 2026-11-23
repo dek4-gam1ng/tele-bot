@@ -20,7 +20,6 @@ TIMES = [
     (11, 20, "BULLSEYE"),
     (12, 15, "TTM 13"),
     (12, 45, "SYDNEY"),
-    (13, 45, "NEWZEALAND"),
     (14, 30, "CHINA"),
     (15, 15, "TTM 16"),
     (16, 15, "JAPAN"),
