@@ -14,9 +14,6 @@ on:
           - 'LAOS'
           - 'SOUTHKOREA'
           - 'NORTHKOREA'
-          - 'TEXAS NIGHT'
-          - 'NEW YORK EVENING'
-          - 'KENTUCKY EVENING'
           - 'CAMBODIA'
           - 'BRUNEI'
           - 'BULLSEYE'
@@ -36,7 +33,6 @@ on:
           - 'HONGKONG'
           - 'TTM 23'
           - 'TTM 24'
-          - 'KENTUCKY DAY'
 
 permissions:
   contents: write

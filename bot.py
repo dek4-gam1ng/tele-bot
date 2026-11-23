@@ -19,9 +19,6 @@ TIMES = [
     (7, 45, "LAOS"),
     (8, 0, "SOUTHKOREA"),
     (8, 30, "NORTHKOREA"),
-    (9, 20, "TEXAS NIGHT"),
-    (9, 35, "NEW YORK EVENING"),
-    (10, 10, "KENTUCKY EVENING"),
     (10, 45, "CAMBODIA"),
     (11, 15, "BRUNEI"),
     (11, 20, "BULLSEYE"),
@@ -41,11 +38,10 @@ TIMES = [
     (21, 15, "TTM 22"),
     (22, 15, "TTM 23"),
     (23, 15, "TTM 24"),
-    (23, 30, "KENTUCKY DAY"),
 ]
 STATE_PATH = ".telegram-sent.json"
 CATCHUP_MINUTES = 15
-NAME_ALIASES = {"NEW YORK": "NEW YORK EVENING", "TEXAS": "TEXAS NIGHT"}
+NAME_ALIASES = {}
 VIP_MARKETS = frozenset({"CAMBODIA", "SYDNEY", "SGP", "TAIWAN", "HONGKONG"})
 VIP_LINKS = (
     "https://mez.ink/jituexpress",
@@ -149,7 +145,6 @@ def save_state(state, sha):
 
 def is_off(name, day):
     return ((name == "PCSO" and day == 6) or
-            (name == "TEXAS NIGHT" and day == 0) or
             (name == "SGP" and day in (1, 4)) or
             (name == "MAGNUM4D" and day not in (2, 5, 6)))
 
