@@ -1276,5 +1276,12 @@
     "digits": "70855",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-23:NEW YORK EVENING": {
+    "sent_at": "2026-11-23T09:35:10.273632+07:00",
+    "message_id": 1052,
+    "digits": "68550",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
