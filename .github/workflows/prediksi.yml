@@ -10,10 +10,6 @@ on:
         type: choice
         options:
           - 'AUTO'
-          - 'AUSTRALIA'
-          - 'LAOS'
-          - 'SOUTHKOREA'
-          - 'NORTHKOREA'
           - 'CAMBODIA'
           - 'BRUNEI'
           - 'BULLSEYE'
@@ -25,7 +21,6 @@ on:
           - 'JAPAN'
           - 'SGP'
           - 'MAGNUM4D'
-          - 'MEXICO'
           - 'TTM 19'
           - 'PCSO'
           - 'TAIWAN'

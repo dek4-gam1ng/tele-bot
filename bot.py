@@ -15,10 +15,6 @@ from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup, LinkPrevie
 WIB = ZoneInfo("Asia/Jakarta")
 # Local WIB hours and minutes, in posting order.
 TIMES = [
-    (5, 45, "AUSTRALIA"),
-    (7, 45, "LAOS"),
-    (8, 0, "SOUTHKOREA"),
-    (8, 30, "NORTHKOREA"),
     (10, 45, "CAMBODIA"),
     (11, 15, "BRUNEI"),
     (11, 20, "BULLSEYE"),
@@ -30,7 +26,6 @@ TIMES = [
     (16, 15, "JAPAN"),
     (16, 45, "SGP"),
     (17, 15, "MAGNUM4D"),
-    (17, 40, "MEXICO"),
     (18, 15, "TTM 19"),
     (19, 15, "PCSO"),
     (19, 45, "TAIWAN"),
