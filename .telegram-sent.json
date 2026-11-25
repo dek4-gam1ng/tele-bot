@@ -1213,5 +1213,12 @@
     "digits": "15118",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-25:MAGNUM4D": {
+    "sent_at": "2026-11-25T17:15:10.792979+07:00",
+    "message_id": 1096,
+    "digits": "04575",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
