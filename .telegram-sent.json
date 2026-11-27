@@ -1031,5 +1031,12 @@
     "digits": "70403",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-27:TTM 13": {
+    "sent_at": "2026-11-27T12:15:12.252070+07:00",
+    "message_id": 1123,
+    "digits": "54598",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
