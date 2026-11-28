@@ -1038,5 +1038,12 @@
     "digits": "53236",
     "model": "pooled-frequency-v1",
     "sample_size": 90
+  },
+  "2026-11-28:PCSO": {
+    "sent_at": "2026-11-28T19:15:15.251111+07:00",
+    "message_id": 1146,
+    "digits": "82670",
+    "model": "pooled-frequency-v1",
+    "sample_size": 90
   }
 }
